@@ -95,7 +95,7 @@ def prepare_dataloader(dataset: Dataset, batch_size: int):
     )
 
 
-def main(save_every: int, total_epochs: int, batch_size: int, snapshot_path: str = "snapshot.pt"):
+def main(total_epochs: int, batch_size: int, save_every: int, snapshot_path: str = "snapshot.pt"):
     ddp_setup()
     dataset, model, optimizer = load_train_objs()
     train_data = prepare_dataloader(dataset, batch_size)
@@ -116,4 +116,4 @@ if __name__ == "__main__":
     print_nodes_info()
     # ---
 
-    main(args.save_every, args.total_epochs, args.batch_size)
+    main(args.total_epochs, args.batch_size, args.save_every)

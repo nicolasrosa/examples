@@ -24,6 +24,26 @@ def ddp_setup(rank, world_size):
     init_process_group(backend="nccl", rank=rank, world_size=world_size)
     torch.cuda.set_device(rank)
 
+
+def ddp_setup_lasi(rank, world_size):
+    """
+    Args:
+        rank: Unique identifier of each process
+        world_size: Total number of processes
+    """
+    # --- Cluster description
+    # 1 computer with 2 RTX3090 GPUs (hostname: lasiradagast)
+    # 1 computer with 2 RTX3090 GPUs (hostname: lasiiluvatar)
+    # 1 computer with 2 GTX TitanX GPUs (hostname: crobolorin)
+    # ---
+    # os.environ["MASTER_ADDR"] = "lasiradagast"
+    os.environ["MASTER_ADDR"] = "192.168.0.1"
+    # os.environ["MASTER_PORT"] = "6817"
+    os.environ["MASTER_PORT"] = "6818"
+    init_process_group(backend="nccl", rank=rank, world_size=world_size)
+    torch.cuda.set_device(rank)
+
+
 class Trainer:
     def __init__(
         self,
@@ -86,10 +106,11 @@ def prepare_dataloader(dataset: Dataset, batch_size: int):
     )
 
 
-def main(rank: int, world_size: int, save_every: int, total_epochs: int, batch_size: int):
+def main(rank: int, world_size: int, total_epochs: int, batch_size: int, save_every: int):
     ic(rank, world_size)
 
     ddp_setup(rank, world_size)
+    # ddp_setup_lasi(rank, world_size)
     dataset, model, optimizer = load_train_objs()
     train_data = prepare_dataloader(dataset, batch_size)
     trainer = Trainer(model, train_data, optimizer, rank, save_every)
@@ -106,4 +127,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     world_size = torch.cuda.device_count()
-    mp.spawn(main, args=(world_size, args.save_every, args.total_epochs, args.batch_size), nprocs=world_size)
+    mp.spawn(main, args=(world_size, args.total_epochs, args.batch_size, args.save_every), nprocs=world_size)

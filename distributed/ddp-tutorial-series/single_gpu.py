@@ -63,7 +63,7 @@ def prepare_dataloader(dataset: Dataset, batch_size: int):
     )
 
 
-def main(device, total_epochs, save_every, batch_size):
+def main(device, total_epochs: int, batch_size: int, save_every: int):
     dataset, model, optimizer = load_train_objs()
     train_data = prepare_dataloader(dataset, batch_size)
     trainer = Trainer(model, train_data, optimizer, device, save_every)
@@ -79,4 +79,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     device = 0  # shorthand for cuda:0
-    main(device, args.total_epochs, args.save_every, args.batch_size)
+    main(device, args.total_epochs, args.batch_size, args.save_every)
