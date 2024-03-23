@@ -30,6 +30,8 @@ echo "---"
 #torchrun --nproc_per_node=2 --nnodes=2 --node_rank=${NODE} --rdzv_id=456 --rdzv_backend=c10d --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
 
 # For some reason don't specify the rdzv_backend seems to start to work
+# The NCCL_SOCKET_IFNAME arguments corresponds to the Iluvatar's USB Ethernet Interface name.
+
 #NCCL_DEBUG=INFO \
-NCCL_SOCKET_IFNAME=enx00e04c366680 \  # Iluvatar's USB Interface name
+NCCL_SOCKET_IFNAME=enx00e04c366680 \
 torchrun --nproc_per_node=2 --nnodes=2 --node_rank=${NODE} --rdzv_id=456 --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
