@@ -7,9 +7,6 @@ export NODE=0
 # ---
 
 # --- Local Network (Direct connection)
-#export IP=10.235.0.9
-#export IP=10.235.3.46
-#export IP=143.107.235.101
 export IP=192.168.0.1  # Radagast (master)
 #export IP=192.168.0.2  # Iluvatar (slave)
 # ---
@@ -31,6 +28,8 @@ echo "---"
 #torchrun --nproc_per_node=2 --nnodes=2 --node_rank=${NODE} --rdzv_id=456 --rdzv_backend=c10d --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
 
 # For some reason don't specify the rdzv_backend seems to start to work
+# The NCCL_SOCKET_IFNAME arguments corresponds to the Radagast's USB Ethernet Interface name.
+
 #NCCL_DEBUG=INFO \
-NCCL_SOCKET_IFNAME=enx5ce9315b5950 \  # Radagast's USB Ethernet Interface name
+NCCL_SOCKET_IFNAME=enx5ce9315b5950 \
 torchrun --nproc_per_node=2 --nnodes=2 --node_rank=${NODE} --rdzv_id=456 --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
