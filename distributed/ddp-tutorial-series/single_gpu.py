@@ -3,6 +3,9 @@ import torch.nn.functional as F  # noqa
 from torch.utils.data import Dataset, DataLoader
 from datautils import MyTrainDataset
 
+# --- Global variables
+CHECKPOINT_FILEPATH = "checkpoint.pt"
+
 
 class Trainer:
     def __init__(
@@ -36,9 +39,8 @@ class Trainer:
 
     def _save_checkpoint(self, epoch):
         ckp = self.model.state_dict()
-        PATH = "checkpoint.pt"
-        torch.save(ckp, PATH)
-        print(f"Epoch {epoch} | Training checkpoint saved at {PATH}")
+        torch.save(ckp, CHECKPOINT_FILEPATH)
+        print(f"Epoch {epoch} | Training checkpoint saved at {CHECKPOINT_FILEPATH}")
 
     def train(self, max_epochs: int):
         for epoch in range(max_epochs):

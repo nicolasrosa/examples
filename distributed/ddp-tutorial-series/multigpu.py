@@ -12,6 +12,9 @@ from torch.distributed import init_process_group, destroy_process_group
 import os
 # ---
 
+# --- Global variables
+CHECKPOINT_FILEPATH = "checkpoint.pt"
+
 
 def ddp_setup(rank, world_size):
     """
@@ -78,9 +81,8 @@ class Trainer:
 
     def _save_checkpoint(self, epoch):
         ckp = self.model.module.state_dict()
-        PATH = "checkpoint.pt"
-        torch.save(ckp, PATH)
-        print(f"Epoch {epoch} | Training checkpoint saved at {PATH}")
+        torch.save(ckp, CHECKPOINT_FILEPATH)
+        print(f"Epoch {epoch} | Training checkpoint saved at {CHECKPOINT_FILEPATH}")
 
     def train(self, max_epochs: int):
         for epoch in range(max_epochs):
