@@ -23,7 +23,7 @@ echo "---"
 # ---
 
 # Following commands are failing
-# torchrun --nproc_per_node=2 --nnodes=2 --node_rank=1 --rdzv_id=456 --rdzv_backend=c10d --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
+# torchrun --nproc_per_node=2 --nnodes=2 --node_rank=${NODE} --rdzv_id=456 --rdzv_backend=c10d --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
 
 # For some reason don't specify the rdzv_backend seems to start to work
-torchrun --nproc_per_node=2 --nnodes=2 --node_rank=1 --rdzv_id=456 --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
+torchrun --nproc_per_node=2 --nnodes=2 --node_rank=${NODE} --rdzv_id=456 --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
