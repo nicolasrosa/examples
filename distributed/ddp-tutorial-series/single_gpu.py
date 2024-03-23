@@ -1,5 +1,5 @@
 import torch
-import torch.nn.functional as F
+import torch.nn.functional as F  # noqa
 from torch.utils.data import Dataset, DataLoader
 from datautils import MyTrainDataset
 

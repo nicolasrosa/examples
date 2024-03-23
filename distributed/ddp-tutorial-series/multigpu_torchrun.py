@@ -1,11 +1,11 @@
 import torch
-import torch.nn.functional as F
+import torch.nn.functional as F  # noqa
 from torch.utils.data import Dataset, DataLoader
 from datautils import MyTrainDataset
 
 # --- Additional modules required for Distributed Training
 from torch.utils.data.distributed import DistributedSampler
-from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.nn.parallel import DistributedDataParallel as DDP  # noqa
 from torch.distributed import init_process_group, destroy_process_group
 import os
 # ---
