@@ -31,5 +31,5 @@ echo "---"
 # The NCCL_SOCKET_IFNAME arguments corresponds to the Radagast's USB Ethernet Interface name.
 
 #NCCL_DEBUG=INFO \
-NCCL_SOCKET_IFNAME=enx5ce9315b5950 \
+NCCL_SOCKET_IFNAME=enxf8e43bacda3a \
 torchrun --nproc_per_node=2 --nnodes=2 --node_rank=${NODE} --rdzv_id=456 --rdzv_endpoint=${IP}:${PORT} multinode.py 50 10
